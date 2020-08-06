@@ -91,6 +91,13 @@ class DiskManager {
 
 extension Observable where Element: Codable {
     
+    /**
+        Persist the current value of this observable to disk. Elements of the observable must be `Codable`.
+     
+      - Parameter key: The key under which to save the elements of this observable. Must be unique
+     
+      - Returns: Observable with the same behavior as `self`.
+     */
     public func persist(_ key: String) -> Observable<Element> {
         return Observable.create { observer -> Disposable in
             
@@ -125,6 +132,13 @@ extension Observable where Element: Codable {
 
 extension Observable {
     
+    /**
+        Persist the current success value of this observable to disk. Elements must conform to `Result` and values must be `Codable`.
+     
+      - Parameter key: The key under which to save the elements of this observable. Must be unique
+     
+      - Returns: Observable with the same behavior as `self`.
+     */
     public func persist<T: Codable, E: Error>(_ key: String) -> Observable<Element> where Element == Result<T, E> {
         return Observable.create { observer -> Disposable in
             
